@@ -11,14 +11,16 @@ h1,h2,h3{line-height:1.2}
 h1{font-size:clamp(34px,5vw,54px);margin:12px 0}
 header p{max-width:760px;color:#e6eee9;font-size:19px}
 .layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:28px;align-items:start}
-nav,.article,.intro{background:var(--paper);border:1px solid var(--line);border-radius:12px}
-nav{padding:20px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow:auto}
-nav h2{font:700 16px Arial,sans-serif;margin:0 0 12px;color:var(--green)}
-nav ol{padding-left:22px;margin:0}
-nav li{padding:4px 0;font:14px/1.4 Arial,sans-serif}
-nav a{text-decoration:none;display:block;padding:3px 0}
-nav a:hover{text-decoration:underline}
-nav a.active{font-weight:700;color:#173e32;text-decoration:underline}
+#book-toc{min-width:0}
+.toc-details{background:var(--paper);border:1px solid var(--line);border-radius:12px}
+.toc-details summary{cursor:pointer;list-style:revert;padding:17px 20px;color:var(--green);font:700 16px/1.4 Arial,sans-serif}
+.toc-details nav{padding:0 20px 18px;max-height:calc(100vh - 90px);overflow:auto}
+.toc-details ol{padding-left:22px;margin:0}
+.toc-details li{padding:4px 0;font:14px/1.4 Arial,sans-serif}
+.toc-details nav a{text-decoration:none;display:block;padding:3px 0}
+.toc-details nav a:hover{text-decoration:underline}
+.toc-details nav a.active{font-weight:700;color:#173e32;text-decoration:underline}
+.article,.intro{background:var(--paper);border:1px solid var(--line);border-radius:12px}
 .article{padding:clamp(24px,4vw,52px);min-height:600px}
 .article h1{font-size:clamp(29px,4vw,42px);color:#173e32;margin-top:8px}
 .article p{margin:0 0 20px}
@@ -33,5 +35,18 @@ nav a.active{font-weight:700;color:#173e32;text-decoration:underline}
 .intro h2{margin-top:0;color:var(--green)}
 footer{text-align:center;color:var(--muted);font:13px Arial,sans-serif;padding:28px}
 .small{font:13px/1.5 Arial,sans-serif;color:var(--muted)}
-@media(max-width:800px){.layout{grid-template-columns:1fr}nav{position:static;max-height:none}nav ol{columns:2}.article{min-height:0}}
-@media(max-width:480px){nav ol{columns:1}body{font-size:16px}.wrap{padding:18px 12px}}
+@media(min-width:801px){#book-toc{position:sticky;top:18px}}
+@media(max-width:800px){
+ .layout{grid-template-columns:1fr}
+ .toc-details{margin-bottom:2px}
+ .toc-details nav{max-height:none}
+ .toc-details[open] nav ol{columns:2}
+ .article{min-height:0}
+}
+@media(max-width:480px){
+ body{font-size:16px}
+ .wrap{padding:18px 12px}
+ .toc-details summary{padding:14px 16px}
+ .toc-details[open] nav ol{columns:1}
+ .article{padding:24px 19px}
+}

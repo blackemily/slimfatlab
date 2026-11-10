@@ -4,19 +4,26 @@ const chapterTitles = ["A Closer Look at Nagano Lean Belly Tonic","Understanding
  const current=Number(script && script.dataset.chapter || 0);
  const host=document.getElementById('book-toc');
  if(host){
-   const nav=document.createElement('nav'); nav.innerHTML='<h2>Contents · 20 Chapters</h2>';
+   const details=document.createElement('details');
+   details.className='toc-details';
+   // Keep the full sidebar open on larger screens, but collapsed on phones.
+   details.open=window.matchMedia('(min-width: 801px)').matches;
+   const summary=document.createElement('summary');
+   summary.textContent='Contents · 20 Chapters';
+   const nav=document.createElement('nav');
    const ol=document.createElement('ol');
    chapterTitles.forEach((title,i)=>{
      const n=i+1, li=document.createElement('li'), a=document.createElement('a');
      a.href='chapter-'+String(n).padStart(2,'0')+'.html';
      a.textContent='Chapter '+n+': '+title;
-     if(n===current) a.className='active';
+     if(n===current) { a.className='active'; a.setAttribute('aria-current','page'); }
      li.appendChild(a); ol.appendChild(li);
    });
    nav.appendChild(ol);
    const home=document.createElement('p');home.className='small';
    const link=document.createElement('a');link.href='index.html';link.textContent='Book home';home.appendChild(link);
-   nav.appendChild(home); host.appendChild(nav);
+   nav.appendChild(home);
+   details.appendChild(summary);details.appendChild(nav);host.appendChild(details);
  }
  if(current){
    const pager=document.getElementById('chapter-pager');
